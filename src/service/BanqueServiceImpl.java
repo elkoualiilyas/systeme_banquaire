@@ -7,6 +7,8 @@ import model.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class BanqueServiceImpl implements BanqueService {
 
@@ -24,6 +26,10 @@ public class BanqueServiceImpl implements BanqueService {
         this.clientDao = clientDao;
         this.compteDao = compteDao;
         this.operationDao = operationDao;
+    }
+    private final ConcurrentHashMap<Integer, ReentrantLock> verrous = new ConcurrentHashMap<>();
+    private ReentrantLock getLock(int numeroCompte) {
+    	return verrous.computeIfAbsent(numeroCompte, n->new ReentrantLock());
     }
 
     @Override
@@ -53,25 +59,44 @@ public class BanqueServiceImpl implements BanqueService {
 
     @Override
     public void deposer(int numeroCompte, double montant) {
+    	ReentrantLock depLock=getLock(numeroCompte);
+    	depLock.lock();
+    	try {
         Compte c = compteDao.findByNumero(numeroCompte)
                 .orElseThrow(() -> new RuntimeException("Compte introuvable"));
         c.deposer(montant);
         compteDao.save(c);
         enregistrerOperation(Operation.TypeOperation.DEPOT, montant, numeroCompte, null);
+    	}finally {
+    		depLock.unlock();
+    	}
     }
 
     @Override
     public void retirer(int numeroCompte, double montant) {
+    	ReentrantLock reLock=getLock(numeroCompte);
+    	reLock.lock();
+    	try {
         Compte c = compteDao.findByNumero(numeroCompte)
                 .orElseThrow(() -> new RuntimeException("Compte introuvable"));
         c.retirer(montant);
         compteDao.save(c);
         enregistrerOperation(Operation.TypeOperation.RETRAIT, montant, numeroCompte, null);
+    	}finally {
+    		reLock.unlock();
+    	}
     }
 
     @Override
     public void transferer(int numeroCompteSource, int numeroCompteDestination, double montant) {
-        Compte source = compteDao.findByNumero(numeroCompteSource)
+    	ReentrantLock srcLock=getLock(numeroCompteSource);
+    	ReentrantLock dstLock=getLock(numeroCompteDestination);
+    	ReentrantLock first = (numeroCompteSource < numeroCompteDestination) ? srcLock : dstLock;
+        ReentrantLock second = (numeroCompteSource < numeroCompteDestination) ? dstLock : srcLock;
+    	first.lock();
+    	second.lock();
+    	try { 
+    		Compte source = compteDao.findByNumero(numeroCompteSource)
                 .orElseThrow(() -> new RuntimeException("Source introuvable"));
         Compte dest = compteDao.findByNumero(numeroCompteDestination)
                 .orElseThrow(() -> new RuntimeException("Destination introuvable"));
@@ -81,6 +106,11 @@ public class BanqueServiceImpl implements BanqueService {
         compteDao.save(dest);
         enregistrerOperation(Operation.TypeOperation.VIREMENT, montant,
                 numeroCompteSource, numeroCompteDestination);
+        }finally {
+        	first.unlock();
+        	second.unlock();
+        }
+      
     }
 
     @Override

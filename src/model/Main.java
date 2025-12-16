@@ -29,19 +29,11 @@ public class Main {
         service.deposer(compte1.getNumero(), 200);
         System.out.println("Solde compte1 après dépôt 200 = " + service.consulterSolde(compte1.getNumero()));
 
-        // 4) Retrait sur compte2
-        service.retirer(compte2.getNumero(), 100);
-        System.out.println("Solde compte2 après retrait 100 = " + service.consulterSolde(compte2.getNumero()));
-
-        // 5) Virement de compte1 vers compte2
-        service.transferer(compte1.getNumero(), compte2.getNumero(), 300);
-        System.out.println("Solde compte1 après virement 300 = " + service.consulterSolde(compte1.getNumero()));
-        System.out.println("Solde compte2 après virement 300 = " + service.consulterSolde(compte2.getNumero()));
-
-        // 6) Afficher l'historique d'un compte
-        System.out.println("Historique opérations compte1 :");
-        for (Operation op : service.historiqueOperations(compte1.getNumero())) {
-            System.out.println(op.getId() + " - " + op.getType() + " - " + op.getMontant());
-        }
+       service.deposer(compte1.getNumero(), 4000);
+       System.out.println("virement effectue solde de compte: "+compte1.getClientId()+" est: "+service.consulterSolde(compte1.getNumero()));
+       // 5) Virement de compte1 vers compte2
+       service.transferer(compte1.getNumero(), compte2.getNumero(), 300);
+       System.out.println("Solde compte1 après virement 300 = " + service.consulterSolde(compte1.getNumero()));
+       System.out.println("Solde compte2 après virement 300 = " + service.consulterSolde(compte2.getNumero()));
     }
 }
