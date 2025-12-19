@@ -57,7 +57,7 @@ public class ClientCsvDao implements ClientDao {
     public List<Client> findAll() {
         try (Stream<String> lines = Files.lines(filePath)) {
             return lines
-                    .filter(l -> !l.isBlank())
+                    .filter(l -> !l.isEmpty())
                     .map(this::toClient)
                     .collect(Collectors.toList());
         } catch (IOException e) {

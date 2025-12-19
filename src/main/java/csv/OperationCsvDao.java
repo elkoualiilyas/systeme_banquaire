@@ -52,7 +52,7 @@ public class OperationCsvDao implements OperationDao {
     public List<Operation> findAll() {
         try (Stream<String> lines = Files.lines(filePath)) {
             return lines
-                    .filter(l -> !l.isBlank())
+                    .filter(l -> !l.isEmpty())
                     .map(this::toOperation)
                     .collect(Collectors.toList());
         } catch (IOException e) {
@@ -72,7 +72,7 @@ public class OperationCsvDao implements OperationDao {
         double montant = Double.parseDouble(p[2]);
         LocalDateTime date = LocalDateTime.parse(p[3]);
         int compteSource = Integer.parseInt(p[4]);
-        Integer compteDestination = p[5].isBlank() ? null : Integer.parseInt(p[5]);
+        Integer compteDestination = p[5].isEmpty() ? null : Integer.parseInt(p[5]);
 
         return new Operation(id, type, montant, date, compteSource, compteDestination);
     }

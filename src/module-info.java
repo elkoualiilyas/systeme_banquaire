@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * 
- */
-module systeme_banquaire {
-}

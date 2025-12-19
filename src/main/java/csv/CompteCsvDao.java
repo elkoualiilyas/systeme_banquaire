@@ -57,7 +57,7 @@ public class CompteCsvDao implements CompteDao {
     public List<Compte> findAll() {
         try (Stream<String> lines = Files.lines(filePath)) {
             return lines
-                    .filter(l -> !l.isBlank())
+                    .filter(l -> !l.isEmpty())
                     .map(this::toCompte)
                     .collect(Collectors.toList());
         } catch (IOException e) {
