@@ -86,6 +86,10 @@ public class BanqueServiceImpl implements BanqueService {
     		reLock.unlock();
     	}
     }
+    @Override
+    public List<Client> listerClients() {
+        return clientDao.findAll(); // will read from CSV or SQL depending on the DAO you injected
+    }
 
     @Override
     public void transferer(int numeroCompteSource, int numeroCompteDestination, double montant) {

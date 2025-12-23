@@ -20,6 +20,8 @@ public interface BanqueService {
     void retirer(int numeroCompte, double montant);
 
     void transferer(int numeroCompteSource, int numeroCompteDestination, double montant);
+    List<Client> listerClients();
+
 
     List<Operation> historiqueOperations(int numeroCompte);
 }
