@@ -22,6 +22,7 @@ public interface BanqueService {
     void transferer(int numeroCompteSource, int numeroCompteDestination, double montant);
     List<Client> listerClients();
 
-
+    List<Compte> listerComptes();              
+    List<Compte> listerComptesParClient(int id);
     List<Operation> historiqueOperations(int numeroCompte);
 }

@@ -136,4 +136,13 @@ public class BanqueServiceImpl implements BanqueService {
         );
         return operationDao.save(op);
     }
+    @Override
+    public List<Compte> listerComptes() {
+        return compteDao.findAll();
+    }
+
+    @Override
+    public List<Compte> listerComptesParClient(int clientId) {
+        return compteDao.findByClientId(clientId);
+    }
 }

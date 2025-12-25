@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.ChoiceBox?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ui.controller.CompteController">
+
+    <top>
+        <ToolBar>
+            <Button text="Retour" onAction="#backToDashboard"/>
+            <Label text="Gestion des comptes" style="-fx-font-size: 16;"/>
+        </ToolBar>
+    </top>
+
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <!-- Formulaire de création de compte -->
+            <HBox spacing="10">
+                <TextField fx:id="clientIdField" promptText="ID client"/>
+                <TextField fx:id="soldeField"    promptText="Solde initial"/>
+
+                <ChoiceBox fx:id="typeChoice">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="COURANT"/>
+                            <String fx:value="EPARGNE"/>
+                        </FXCollections>
+                    </items>
+                </ChoiceBox>
+
+                <Button text="Créer compte" onAction="#creerCompte"/>
+            </HBox>
+
+            <!-- Tableau des comptes -->
+            <TableView fx:id="comptesTable" prefHeight="400">
+                <columns>
+                    <TableColumn fx:id="numColumn"    text="Numéro"    prefWidth="80"/>
+                    <TableColumn fx:id="soldeColumn"  text="Solde"     prefWidth="100"/>
+                    <TableColumn fx:id="clientColumn" text="Client ID" prefWidth="80"/>
+                    <TableColumn fx:id="typeColumn"   text="Type"      prefWidth="80"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+</BorderPane>

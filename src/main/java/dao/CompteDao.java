@@ -11,4 +11,5 @@ public interface CompteDao {
     List<Compte> findByClientId(int clientId);
     List<Compte> findAll();
     void deleteByNumero(int numero);
+ 
 }

@@ -8,6 +8,7 @@ model\Main.class
 dao\ClientDao.class
 model\Operation.class
 csv\ClientCsvDao.class
+ui\controller\CompteController.class
 csv\CompteCsvDao.class
 config\DbConnectionFactory.class
 model\BanqueService.class

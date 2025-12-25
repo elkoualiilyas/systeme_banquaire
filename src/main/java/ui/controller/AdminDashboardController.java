@@ -10,6 +10,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -113,4 +115,20 @@ public class AdminDashboardController {
             new Alert(Alert.AlertType.ERROR, "Erreur export CSV: " + e.getMessage()).showAndWait();
         }
     }
+    @FXML
+    private void openComptes() throws Exception {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/ui/CompteView.fxml"));
+        Scene scene = new Scene(loader.load());
+
+        // Get the comptes controller and inject dependencies
+        CompteController controller = loader.getController();
+        controller.setBanqueService(banqueService);
+        // if you need back navigation:
+        controller.setPrimaryStage(primaryStage);
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    
 }

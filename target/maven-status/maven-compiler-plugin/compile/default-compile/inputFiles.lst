@@ -14,6 +14,7 @@ C:\Users\RPC\eclipse-workspace\systeme_banquaire\src\main\java\dao\OperationDao.
 C:\Users\RPC\eclipse-workspace\systeme_banquaire\src\main\java\model\Compte.java
 C:\Users\RPC\eclipse-workspace\systeme_banquaire\src\main\java\dao\ClientDao.java
 C:\Users\RPC\eclipse-workspace\systeme_banquaire\src\main\java\sql\OperationSqlDao.java
+C:\Users\RPC\eclipse-workspace\systeme_banquaire\src\main\java\ui\controller\CompteController.java
 C:\Users\RPC\eclipse-workspace\systeme_banquaire\src\main\java\csv\CompteCsvDao.java
 C:\Users\RPC\eclipse-workspace\systeme_banquaire\src\main\java\model\CompteEpargne.java
 C:\Users\RPC\eclipse-workspace\systeme_banquaire\src\main\java\sql\CompteSqlDao.java
