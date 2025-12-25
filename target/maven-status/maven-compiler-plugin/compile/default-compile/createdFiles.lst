@@ -13,6 +13,7 @@ csv\CompteCsvDao.class
 config\DbConnectionFactory.class
 model\BanqueService.class
 model\Compte.class
+ui\controller\OperationsController.class
 service\BanqueServiceImpl.class
 model\Operation$TypeOperation.class
 csv\OperationCsvDao.class

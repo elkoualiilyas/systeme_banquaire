@@ -130,5 +130,17 @@ public class AdminDashboardController {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    @FXML
+    private void openOperations() throws Exception {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/ui/OperationsView.fxml"));
+        Scene scene = new Scene(loader.load());
+
+        // Récupérer le controller des opérations
+        OperationsController controller = loader.getController();
+        controller.setBanqueService(banqueService);   // même service que pour comptes
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
     
 }

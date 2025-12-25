@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ui.controller.OperationsController">
+
+    <top>
+        <ToolBar>
+            <Button text="Retour" onAction="#backToDashboard"/>
+            <Label text="Opérations sur les comptes" style="-fx-font-size: 16; -fx-padding: 0 0 0 10;"/>
+        </ToolBar>
+    </top>
+
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <!-- Choix de l'opération -->
+            <HBox spacing="10">
+                <Label text="Type d'opération:"/>
+                <ChoiceBox fx:id="typeOperationChoice"/>
+            </HBox>
+
+            <!-- Compte source -->
+            <HBox spacing="10">
+                <Label text="Compte source:"/>
+                <TextField fx:id="compteSourceField" promptText="Numéro compte source"/>
+            </HBox>
+
+            <!-- Compte destination (seulement pour virement) -->
+            <HBox spacing="10">
+                <Label text="Compte destination:"/>
+                <TextField fx:id="compteDestField" promptText="Numéro compte destination (virement)"/>
+            </HBox>
+
+            <!-- Montant -->
+            <HBox spacing="10">
+                <Label text="Montant:"/>
+                <TextField fx:id="montantField" promptText="Montant"/>
+            </HBox>
+
+            <!-- Bouton exécuter -->
+            <Button text="Exécuter l'opération" onAction="#executerOperation"/>
+
+            <!-- Message d'erreur/succès -->
+            <Label fx:id="messageLabel" textFill="red"/>
+        </VBox>
+    </center>
+
+</BorderPane>

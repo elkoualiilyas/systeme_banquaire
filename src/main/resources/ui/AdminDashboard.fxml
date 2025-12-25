@@ -12,7 +12,9 @@
             <Label text="Tableau de bord - Clients" style="-fx-font-size: 16;" />
             <Pane HBox.hgrow="ALWAYS"/>
             <Button text="Exporter clients (CSV)" onAction="#exportClientsCsv"/>
-            <Button text="Comptes" onAction="#openComptes"/>            
+            <Button text="Comptes" onAction="#openComptes"/>    
+            <Button text="Effectuer une operation" onAction="#openOperations"/>            
+                   
         </ToolBar>
     </top>
 
