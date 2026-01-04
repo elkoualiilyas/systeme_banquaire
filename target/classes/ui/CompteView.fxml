@@ -7,9 +7,10 @@
 <?import javafx.scene.control.ChoiceBox?>
 
 
-<BorderPane xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx" 
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ui.controller.CompteController">
+            fx:controller="ui.controller.CompteController"
+            stylesheets="@../css/styles.css">
 
     <top>
         <ToolBar>

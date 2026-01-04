@@ -40,16 +40,29 @@ public class BanqueServiceImpl implements BanqueService {
 
     @Override
     public Compte creerCompteCourant(int clientId, double soldeInitial) {
+        // 1 courant max
+        boolean hasCourant = compteDao.findByClientId(clientId).stream()
+                .anyMatch(c -> c instanceof CompteCourant);
+        if (hasCourant) {
+            throw new RuntimeException("Ce client a déjà un compte courant.");
+        }
+
         Compte compte = new CompteCourant(nextCompteNumero++, soldeInitial, clientId);
         return compteDao.save(compte);
     }
 
     @Override
     public Compte creerCompteEpargne(int clientId, double soldeInitial) {
+        // 1 épargne max
+        boolean hasEpargne = compteDao.findByClientId(clientId).stream()
+                .anyMatch(c -> c instanceof CompteEpargne);
+        if (hasEpargne) {
+            throw new RuntimeException("Ce client a déjà un compte épargne.");
+        }
+
         Compte compte = new CompteEpargne(nextCompteNumero++, soldeInitial, clientId);
         return compteDao.save(compte);
     }
-
     @Override
     public double consulterSolde(int numeroCompte) {
         Compte c = compteDao.findByNumero(numeroCompte)

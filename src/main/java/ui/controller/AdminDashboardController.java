@@ -116,6 +116,17 @@ public class AdminDashboardController {
         }
     }
     @FXML
+    private void openHistorique() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/HistoriqueOperationsView.fxml"));
+        Scene scene = new Scene(loader.load());
+        HistoriqueOperationsController controller = loader.getController();
+        controller.setBanqueService(banqueService);
+        controller.setPrimaryStage(primaryStage);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    @FXML
     private void openComptes() throws Exception {
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/ui/CompteView.fxml"));
@@ -138,7 +149,8 @@ public class AdminDashboardController {
 
         // Récupérer le controller des opérations
         OperationsController controller = loader.getController();
-        controller.setBanqueService(banqueService);   // même service que pour comptes
+        controller.setBanqueService(banqueService);
+        controller.setPrimaryStage(primaryStage); // même service que pour comptes
         primaryStage.setScene(scene);
         primaryStage.show();
     }

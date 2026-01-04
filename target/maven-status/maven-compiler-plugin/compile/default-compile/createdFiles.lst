@@ -1,3 +1,4 @@
+ui\controller\HistoriqueOperationsController.class
 dao\CompteDao.class
 model\Client.class
 sql\CompteSqlDao.class

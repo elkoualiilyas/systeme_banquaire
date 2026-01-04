@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx" 
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ui.controller.HistoriqueOperationsController"
+            stylesheets="@../css/styles.css">
+
+    <top>
+        <ToolBar styleClass="toolbar">
+            <Button text="← Retour" onAction="#backToDashboard" styleClass="secondary-button"/>
+            <Label text="📊 Historique des Opérations" styleClass="title-label"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+        </ToolBar>
+    </top>
+
+    <center>
+        <VBox spacing="20" styleClass="vbox">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            
+            <!-- Sélection du compte -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Numéro de compte:" styleClass="label"/>
+                <TextField fx:id="numeroCompteField" promptText="Entrer numéro de compte" prefWidth="200"/>
+                <Button text="🔍 Charger Historique" onAction="#chargerHistorique" styleClass="primary-button"/>
+            </HBox>
+
+            <!-- Tableau opérations -->
+            <Label text="Liste des opérations" styleClass="label"/>
+            <TableView fx:id="operationsTable" prefHeight="500">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
+                    <TableColumn fx:id="typeColumn" text="Type" prefWidth="100"/>
+                    <TableColumn fx:id="montantColumn" text="Montant (€)" prefWidth="120"/>
+                    <TableColumn fx:id="dateColumn" text="Date/Heure" prefWidth="180"/>
+                    <TableColumn fx:id="compteSourceColumn" text="Compte Source" prefWidth="120"/>
+                    <TableColumn fx:id="compteDestColumn" text="Compte Dest." prefWidth="120"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+</BorderPane>

@@ -1,55 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx" 
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ui.controller.OperationsController">
+            fx:controller="ui.controller.OperationsController"
+            stylesheets="@../css/styles.css">
 
     <top>
-        <ToolBar>
-            <Button text="Retour" onAction="#backToDashboard"/>
-            <Label text="Opérations sur les comptes" style="-fx-font-size: 16; -fx-padding: 0 0 0 10;"/>
+        <ToolBar styleClass="toolbar">
+            <Button text="← Retour" onAction="#backToDashboard" styleClass="secondary-button"/>
+            <Label text="⚙️ Opérations Bancaires" styleClass="title-label"/>
+            <Pane HBox.hgrow="ALWAYS"/>
         </ToolBar>
     </top>
 
     <center>
-        <VBox spacing="15">
-            <padding>
-                <Insets top="15" right="15" bottom="15" left="15"/>
-            </padding>
-
-            <!-- Choix de l'opération -->
-            <HBox spacing="10">
-                <Label text="Type d'opération:"/>
-                <ChoiceBox fx:id="typeOperationChoice"/>
+        <VBox spacing="20" styleClass="vbox">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            
+            <Label text="Effectuer une opération" styleClass="title-label"/>
+            
+            <!-- Type d'opération -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Type d'opération:" styleClass="label"/>
+                <ChoiceBox fx:id="typeOperationChoice" prefWidth="200"/>
             </HBox>
 
             <!-- Compte source -->
-            <HBox spacing="10">
-                <Label text="Compte source:"/>
-                <TextField fx:id="compteSourceField" promptText="Numéro compte source"/>
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Compte source:" styleClass="label"/>
+                <TextField fx:id="compteSourceField" promptText="N° Compte source" prefWidth="250"/>
             </HBox>
 
-            <!-- Compte destination (seulement pour virement) -->
-            <HBox spacing="10">
-                <Label text="Compte destination:"/>
-                <TextField fx:id="compteDestField" promptText="Numéro compte destination (virement)"/>
+            <!-- Compte destination -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Compte destination:" styleClass="label"/>
+                <TextField fx:id="compteDestField" promptText="N° Compte destination (virement)" prefWidth="250"/>
             </HBox>
 
             <!-- Montant -->
-            <HBox spacing="10">
-                <Label text="Montant:"/>
-                <TextField fx:id="montantField" promptText="Montant"/>
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Montant (€):" styleClass="label"/>
+                <TextField fx:id="montantField" promptText="Montant" prefWidth="250"/>
             </HBox>
 
             <!-- Bouton exécuter -->
-            <Button text="Exécuter l'opération" onAction="#executerOperation"/>
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="🚀 Exécuter" onAction="#executerOperation" styleClass="primary-button"/>
+                <Region HBox.hgrow="ALWAYS"/>
+            </HBox>
 
-            <!-- Message d'erreur/succès -->
-            <Label fx:id="messageLabel" textFill="red"/>
+            <!-- Message résultat -->
+            <Label fx:id="messageLabel" styleClass="message-error"/>
+
         </VBox>
     </center>
 
