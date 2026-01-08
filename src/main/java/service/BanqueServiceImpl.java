@@ -158,4 +158,20 @@ public class BanqueServiceImpl implements BanqueService {
     public List<Compte> listerComptesParClient(int clientId) {
         return compteDao.findByClientId(clientId);
     }
+    @Override
+    public void modifierClient(Client client) {
+        clientDao.save(client); // DAO handles update/insert
+    }
+
+    @Override
+    public void supprimerClient(int clientId) {
+        // Cascade delete comptes first
+        List<Compte> comptes = compteDao.findByClientId(clientId);
+        for (Compte c : comptes) {
+            compteDao.deleteByNumero(c.getNumero());
+        }
+        
+        // Delete client
+        clientDao.deleteById(clientId);
+    }
 }

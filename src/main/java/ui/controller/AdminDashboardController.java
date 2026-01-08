@@ -5,7 +5,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.Optional;
 
+import dao.ClientDao;
+import dao.CompteDao;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -13,18 +16,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.BanqueService;
 import model.Client;
+import model.Compte;
 
 public class AdminDashboardController {
 
     private BanqueService banqueService;
     private Stage primaryStage;
+    ClientDao clientDao;
+    CompteDao compteDao;
+
 
     // champs du formulaire
     @FXML private TextField cinField;
@@ -153,6 +162,67 @@ public class AdminDashboardController {
         controller.setPrimaryStage(primaryStage); // même service que pour comptes
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+    @FXML
+    private void modifierClient() {
+        Client selected = clientsTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert(Alert.AlertType.WARNING, "Sélectionnez un client");
+            return;
+        }
+
+        // Dialog édition
+        TextInputDialog cinDialog = new TextInputDialog(selected.getCin());
+        cinDialog.setTitle("Modifier Client");
+        cinDialog.setHeaderText("Nouveau CIN:");
+        Optional<String> newCin = cinDialog.showAndWait();
+
+        TextInputDialog nomDialog = new TextInputDialog(selected.getNom());
+        nomDialog.setTitle("Modifier Client");
+        nomDialog.setHeaderText("Nouveau Nom:");
+        Optional<String> newNom = nomDialog.showAndWait();
+
+        TextInputDialog prenomDialog = new TextInputDialog(selected.getPrenom());
+        prenomDialog.setTitle("Modifier Client");
+        prenomDialog.setHeaderText("Nouveau Prénom:");
+        Optional<String> newPrenom = prenomDialog.showAndWait();
+
+        if (newCin.isPresent() && newNom.isPresent() && newPrenom.isPresent()) {
+            selected.setCin(newCin.get());
+            selected.setNom(newNom.get());
+            selected.setPrenom(newPrenom.get());
+            banqueService.modifierClient(selected);  // update in DB/CSV
+            loadClients(); // refresh table
+            showAlert(Alert.AlertType.INFORMATION, "Client modifié");
+        }
+    }
+
+    @FXML
+    private void supprimerClient() {
+        Client selected = clientsTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            showAlert(Alert.AlertType.WARNING, "Sélectionnez un client");
+            return;
+        }
+
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setContentText(String.format(
+            "Supprimer %s %s (ID: %d)?\n⚠️ Comptes supprimés aussi.",
+            selected.getNom(), selected.getPrenom(), selected.getId()));
+        
+        if (confirmation.showAndWait().get() == ButtonType.OK) {
+            banqueService.supprimerClient(selected.getId());  // ✅
+            loadClients();
+            showAlert(Alert.AlertType.INFORMATION, "Client supprimé");
+        }
+    }
+
+
+   
+
+    private void showAlert(Alert.AlertType type, String message) {
+        Alert alert = new Alert(type, message);
+        alert.showAndWait();
     }
     
 }

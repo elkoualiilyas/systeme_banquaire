@@ -26,12 +26,14 @@
             <Label text="Gestion des Clients" styleClass="title-label"/>
             
             <!-- Formulaire création client -->
-            <HBox spacing="15" alignment="CENTER_LEFT">
-                <TextField fx:id="cinField" promptText="CIN" prefWidth="150"/>
-                <TextField fx:id="nomField" promptText="Nom" prefWidth="150"/>
-                <TextField fx:id="prenomField" promptText="Prénom" prefWidth="150"/>
-                <Button text="➕ Ajouter Client" onAction="#creerClient" styleClass="primary-button"/>
-            </HBox>
+           <HBox spacing="10">
+			    <TextField fx:id="cinField" promptText="CIN"/>
+			    <TextField fx:id="nomField" promptText="Nom"/>
+			    <TextField fx:id="prenomField" promptText="Prénom"/>
+			    <Button text="➕ Ajouter" onAction="#creerClient" styleClass="btn-primary"/>
+			    <Button text="✏️ Modifier" onAction="#modifierClient" styleClass="btn-secondary"/>
+			    <Button text="🗑️ Supprimer" onAction="#supprimerClient" styleClass="btn-secondary"/>
+		   </HBox>
 
             <!-- Tableau clients -->
             <Label text="Liste des clients" styleClass="label"/>

@@ -25,5 +25,7 @@ public interface BanqueService {
     List<Compte> listerComptes();              
     List<Compte> listerComptesParClient(int id);
     List<Operation> historiqueOperations(int numeroCompte);
+    void modifierClient(Client client);
+    void supprimerClient(int clientId);
     
 }
